@@ -2,7 +2,6 @@ const axios = require("axios");
 const router = require("express").Router();
 const cheerio = require('cheerio');
 router.get("/simplyhired", (req, res) => {
-  console.log(req.query)
   axios
   .get(`https://www.simplyhired.com/search?q=${req.query.title}r&l=${req.query.location}`)
   .then(function(response) {
@@ -25,6 +24,9 @@ router.get("/simplyhired", (req, res) => {
       result.salary = $(this).children(".SerpJob-jobCard").children('.SerpJob-metaInfo').children('div').children('span').text();
 
       result.imageURL = $(this).find("rpContent").children("viewjob-header-bar").last("div").children("viewjob-compnay-logo").attr("src");
+      
+      result.provider = "SimplyHired";
+      
       scrapeData.push(result)
       // console.log(result)
     })

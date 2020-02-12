@@ -9,7 +9,6 @@ var authKey = process.env.USAJOB_Key;
 
 router.get("/usajobs", (req, res) => {
   // console.log(req.query)
-
   axios
     .get(    
         `https://data.usajobs.gov/api/search?JobCategoryCode=2210&Keyword=${req.query.title}&LocationName=${req.query.location}`,      
@@ -33,6 +32,7 @@ router.get("/usajobs", (req, res) => {
                 result.description = item.MatchedObjectDescriptor.QualificationSummary;
                 result.salary = "";
                 result.imageURL = "";
+                result.provider = "USAJobs";
 
                 resultData.push(result)
         })
